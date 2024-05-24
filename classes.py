@@ -8,10 +8,16 @@ class Document:
     def __str__(self):
         return f"{self.titre} par {self.auteur} (ID: {self.id_document}) - {'Disponible' if self.disponible else 'Emprunté'}"
 
+    def afficher_details(self):
+        raise NotImplementedError("La méthode afficher_details doit être redéfinie dans les sous-classes.")
+
 class Livre(Document):
     def __init__(self, titre, auteur, isbn):
         super().__init__(titre, auteur, isbn)
         self.isbn = isbn
+
+    def afficher_details(self):
+        return f"Livre: {self.titre} par {self.auteur} (ISBN: {self.isbn}) - {'Disponible' if self.disponible else 'Emprunté'}"
 
 class Membre:
     def __init__(self, nom, id_membre):
@@ -34,6 +40,9 @@ class Membre:
         return False
 
     def __str__(self):
+        return f"Membre: {self.nom} (ID: {self.id_membre}) - Documents empruntés: {[doc.titre for doc in self.documents_empruntes]}"
+
+    def afficher_details(self):
         return f"Membre: {self.nom} (ID: {self.id_membre}) - Documents empruntés: {[doc.titre for doc in self.documents_empruntes]}"
 
 class Bibliotheque:
@@ -77,9 +86,9 @@ class Bibliotheque:
 bibliotheque = Bibliotheque()
 
 # Création de documents et d'un membre
-livre1 = Livre("1984", "George Orwell", "360")
-livre2 = Livre("Le Meilleur des Mondes", "Aldous Huxley", "361")
-membre1 = Membre("August", 1)
+livre1 = Livre("1984", "prince", "360")
+livre2 = Livre("Le Monde et ses merveilles", "john muller", "36")
+membre1 = Membre("waridi", 5)
 
 # Ajout des documents et du membre à la bibliothèque
 bibliotheque.ajouter_document(livre1)
