@@ -32,32 +32,30 @@ class Personne:
     def __str__(self):
         # Retourne une chaîne de caractères décrivant la personne
         return f"Personne: {self.nom} (ID: {self.id_personne})"
-
-class Membre(Personne):
+        
+#Modification de la classe Membre pour prendre en charge la surcharge
+class Membre:
     def __init__(self, nom, id_membre):
-        # Initialise un objet Membre en appelant le constructeur de Personne
-        super().__init__(nom, id_membre)
-        self.livres_empruntes = []  # Liste des livres empruntés par le membre
+        self.nom = nom
+        self.id_membre = id_membre
+        self.documents_empruntes = []
 
-    def emprunter_livre(self, livre):
-        # Permet à un membre d'emprunter un livre s'il est disponible
-        if livre.disponible:
-            self.livres_empruntes.append(livre)  # Ajoute le livre à la liste des livres empruntés
-            livre.disponible = False  # Marque le livre comme non disponible
-            return True  # Retourne True pour indiquer que l'emprunt a réussi
-        return False  # Retourne False si le livre n'est pas disponible
+    def emprunter_document(self, document):
+        if document.disponible:
+            self.documents_empruntes.append(document)
+            document.disponible = False
+            return True
+        return False
 
-    def retourner_livre(self, livre):
-        # Permet à un membre de retourner un livre emprunté
-        if livre in self.livres_empruntes:
-            self.livres_empruntes.remove(livre)  # Retire le livre de la liste des livres empruntés
-            livre.disponible = True  # Marque le livre comme disponible
-            return True  # Retourne True pour indiquer que le retour a réussi
-        return False  # Retourne False si le livre n'est pas dans la liste des livres empruntés
+    def retourner_document(self, document):
+        if document in self.documents_empruntes:
+            self.documents_empruntes.remove(document)
+            document.disponible = True
+            return True
+        return False
 
     def __str__(self):
-        # Retourne une chaîne de caractères décrivant le membre et les livres empruntés
-        return f"Membre: {self.nom} (ID: {self.id_personne}) - Livres empruntés: {[livre.titre for livre in self.livres_empruntes]}"
+        return f"Membre: {self.nom} (ID: {self.id_membre}) - Documents empruntés: {[doc.titre for doc in self.documents_empruntes]}"
 
 
 class Bibliotheque:
