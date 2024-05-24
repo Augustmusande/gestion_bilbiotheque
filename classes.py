@@ -1,4 +1,6 @@
-class Document:
+from abc import ABC
+
+class Document(ABC):  # Marquer la classe Document comme abstraite
     def __init__(self, titre, auteur, id_document):
         self.titre = titre
         self.auteur = auteur
@@ -8,10 +10,17 @@ class Document:
     def __str__(self):
         return f"{self.titre} par {self.auteur} (ID: {self.id_document}) - {'Disponible' if self.disponible else 'Emprunté'}"
 
+   # Marquer la méthode comme abstraite
+    def afficher_details(self):
+        pass
+
 class Livre(Document):
     def __init__(self, titre, auteur, isbn):
         super().__init__(titre, auteur, isbn)
         self.isbn = isbn
+
+    def afficher_details(self):
+        return f"Livre: {self.titre} par {self.auteur} (ISBN: {self.isbn}) - {'Disponible' if self.disponible else 'Emprunté'}"
 
 class Membre:
     def __init__(self, nom, id_membre):
@@ -34,6 +43,9 @@ class Membre:
         return False
 
     def __str__(self):
+        return f"Membre: {self.nom} (ID: {self.id_membre}) - Documents empruntés: {[doc.titre for doc in self.documents_empruntes]}"
+
+    def afficher_details(self):
         return f"Membre: {self.nom} (ID: {self.id_membre}) - Documents empruntés: {[doc.titre for doc in self.documents_empruntes]}"
 
 class Bibliotheque:
@@ -77,8 +89,8 @@ class Bibliotheque:
 bibliotheque = Bibliotheque()
 
 # Création de documents et d'un membre
-livre1 = Livre("1984", "George Orwell", "360")
-livre2 = Livre("Le Meilleur des Mondes", "Aldous Huxley", "361")
+livre1 = Livre("la medecine", "jokit", "360")
+livre2 = Livre("Le  Mondes dans ma poche", "john", "361")
 membre1 = Membre("August", 1)
 
 # Ajout des documents et du membre à la bibliothèque
