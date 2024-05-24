@@ -7,7 +7,7 @@ class Document:
         self.__disponible = True
 
     def __str__(self):
-        # Retourne une chaîne de caractères représentant l'objet Document
+        # Retourne une chaîne de caractères représentant l'objet Documents
         return f"{self.__titre} par {self.__auteur} (ID: {self.__id_document}) - {'Disponible' if self.__disponible else 'Emprunté'}"
 
     def afficher_details(self):
